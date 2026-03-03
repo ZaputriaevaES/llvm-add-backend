@@ -14,5 +14,5 @@ add_llvm_target(EZapArchCodeGen
   EZapArch
   )
 
-# add_subdirectory(MCTargetDesc)
+add_subdirectory(MCTargetDesc)
 add_subdirectory(TargetInfo)
