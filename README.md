@@ -16,7 +16,4 @@
 ```
 
 ## Скрин с проверкой регистрации нового таргета:
-
-
-
-
+<img width="1016" height="1292" alt="Снимок экрана 2026-03-03 151501" src="https://github.com/user-attachments/assets/dd2b1097-5e1c-4989-98c3-7bf66331ccfb" />
