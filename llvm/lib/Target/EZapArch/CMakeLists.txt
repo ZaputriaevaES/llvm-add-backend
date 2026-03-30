@@ -1,7 +1,14 @@
 add_llvm_component_group(EZapArch)
 
+set(LLVM_TARGET_DEFINITIONS EZapArch.td)
+
+tablegen(LLVM EZapArchGenRegisterInfo.inc -gen-register-info)
+
+add_public_tablegen_target(EZapArchCommonTableGen)
+
 add_llvm_target(EZapArchCodeGen
   EZapArchTargetMachine.cpp
+  EZapArchRegisterInfo.cpp
 
   LINK_COMPONENTS
   CodeGen
