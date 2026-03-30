@@ -1,6 +1,9 @@
 #include "EZapArchTargetMachine.h"
+#include "EZapArch.h"
 #include "TargetInfo/EZapArchTargetInfo.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
+#include <optional>
 
 using namespace llvm;
 
@@ -19,4 +22,25 @@ EZapArchTargetMachine::EZapArchTargetMachine(const Target &T, const Triple &TT,
                                getEffectiveCodeModel(CM, CodeModel::Small), OL) {
   EZAPARCH_DUMP_CYAN
   initAsmInfo();
+}
+
+namespace {
+
+/// EZapArch Code Generator Pass Configuration Options.
+class EZapArchPassConfig : public TargetPassConfig {
+public:
+  EZapArchPassConfig(EZapArchTargetMachine &TM, PassManagerBase &PM)
+      : TargetPassConfig(TM, PM) {}
+
+  bool addInstSelector() override {
+    EZAPARCH_DUMP_CYAN
+    return false;
+  }
+};
+
+} // end anonymous namespace
+
+TargetPassConfig *EZapArchTargetMachine::createPassConfig(PassManagerBase &PM) {
+  EZAPARCH_DUMP_CYAN
+  return new EZapArchPassConfig(*this, PM);
 }
