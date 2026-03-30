@@ -20,6 +20,7 @@ add_llvm_target(EZapArchCodeGen
   EZapArchAsmPrinter.cpp
   EZapArchISelDagToDag.cpp
   EZapArchISelLowering.cpp
+  EZapArchMCInstLower.cpp
 
   LINK_COMPONENTS
   CodeGen

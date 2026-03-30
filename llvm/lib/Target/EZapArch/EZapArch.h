@@ -13,7 +13,19 @@
 namespace llvm {
 class EZapArchTargetMachine;
 class FunctionPass;
+class EZapArchSubtarget;
+class AsmPrinter;
+class InstructionSelector;
+class MCInst;
+class MCOperand;
+class MachineInstr;
+class MachineOperand;
+class PassRegistry;
 
+bool lowerEZapArchMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
+                                       AsmPrinter &AP);
+bool LowerEZapArchMachineOperandToMCOperand(const MachineOperand &MO,
+                                            MCOperand &MCOp, const AsmPrinter &AP);
 FunctionPass *createEZapArchISelDag(EZapArchTargetMachine &TM, CodeGenOptLevel OptLevel);
 
 } // namespace llvm
