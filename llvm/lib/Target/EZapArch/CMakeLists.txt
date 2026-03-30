@@ -5,6 +5,7 @@ set(LLVM_TARGET_DEFINITIONS EZapArch.td)
 tablegen(LLVM EZapArchGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM EZapArchGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM EZapArchGenSubtargetInfo.inc -gen-subtarget)
+tablegen(LLVM EZapArchGenMCPseudoLowering.inc -gen-pseudo-lowering)
 
 add_public_tablegen_target(EZapArchCommonTableGen)
 
@@ -13,6 +14,7 @@ add_llvm_target(EZapArchCodeGen
   EZapArchRegisterInfo.cpp
   EZapArchInstrInfo.cpp
   EZapArchSubtarget.cpp
+  EZapArchAsmPrinter.cpp
 
   LINK_COMPONENTS
   CodeGen
@@ -20,6 +22,7 @@ add_llvm_target(EZapArchCodeGen
   Support
   Target
   EZapArchInfo
+  AsmPrinter
 
   ADD_TO_COMPONENT
   EZapArch
