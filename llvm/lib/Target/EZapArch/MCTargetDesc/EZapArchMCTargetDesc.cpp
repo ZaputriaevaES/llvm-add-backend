@@ -2,6 +2,7 @@
 #include "TargetInfo/EZapArchTargetInfo.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
+#include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
 
 using namespace llvm;
@@ -11,6 +12,9 @@ using namespace llvm;
 
 #define GET_INSTRINFO_MC_DESC
 #include "EZapArchGenInstrInfo.inc"
+
+#define GET_SUBTARGETINFO_MC_DESC
+#include "EZapArchGenSubtargetInfo.inc"
 
 static MCRegisterInfo *createEZapArchMCRegisterInfo(const Triple &TT) {
   EZAPARCH_DUMP_MAGENTA
@@ -26,9 +30,20 @@ static MCInstrInfo *createEZapArchMCInstrInfo() {
   return X;
 }
 
+static MCSubtargetInfo *createEZapArchMCSubtargetInfo(const Triple &TT,
+                                                      StringRef CPU, StringRef FS) {
+  EZAPARCH_DUMP_MAGENTA
+  return createEZapArchMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
+}
+
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeEZapArchTargetMC() {
   EZAPARCH_DUMP_MAGENTA
   Target &TheEZapArchTarget = getTheEZapArchTarget();
+  // Register the MC register info.
   TargetRegistry::RegisterMCRegInfo(TheEZapArchTarget, createEZapArchMCRegisterInfo);
+  // Register the MC instruction info.
   TargetRegistry::RegisterMCInstrInfo(TheEZapArchTarget, createEZapArchMCInstrInfo);
+  // Register the MC subtarget info.
+  TargetRegistry::RegisterMCSubtargetInfo(TheEZapArchTarget,
+                                          createEZapArchMCSubtargetInfo);
 }
