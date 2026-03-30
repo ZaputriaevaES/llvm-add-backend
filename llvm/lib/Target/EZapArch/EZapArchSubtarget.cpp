@@ -14,6 +14,7 @@ EZapArchSubtarget::EZapArchSubtarget(const Triple &TT, const std::string &CPU,
                                      const std::string &FS, const TargetMachine &TM)
     : EZapArchGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS),
       TLInfo(TM, *this),
-      FrameLowering(*this) {
+      FrameLowering(*this),
+      RegInfo() {
   EZAPARCH_DUMP_CYAN
 }

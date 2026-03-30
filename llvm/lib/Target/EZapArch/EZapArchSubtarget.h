@@ -4,6 +4,7 @@
 #include "EZapArch.h"
 #include "EZapArchFrameLowering.h"
 #include "EZapArchISelLowering.h"
+#include "EZapArchRegisterInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -14,6 +15,7 @@ namespace llvm {
 class EZapArchSubtarget : public EZapArchGenSubtargetInfo {
   EZapArchTargetLowering TLInfo;
   EZapArchFrameLowering FrameLowering;
+  EZapArchRegisterInfo RegInfo;
 
 public:
   EZapArchSubtarget(const Triple &TT, const std::string &CPU,
@@ -27,10 +29,13 @@ public:
     EZAPARCH_DUMP_CYAN
     return &TLInfo;
   }
-
   const EZapArchFrameLowering *getFrameLowering() const override {
     EZAPARCH_DUMP_CYAN
     return &FrameLowering;
+  }
+  const EZapArchRegisterInfo *getRegisterInfo() const override {
+    EZAPARCH_DUMP_CYAN
+    return &RegInfo;
   }
 };
 
