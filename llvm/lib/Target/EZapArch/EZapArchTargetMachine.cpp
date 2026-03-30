@@ -32,8 +32,13 @@ public:
   EZapArchPassConfig(EZapArchTargetMachine &TM, PassManagerBase &PM)
       : TargetPassConfig(TM, PM) {}
 
+  EZapArchTargetMachine &getEZapArchTargetMachine() const {
+    return getTM<EZapArchTargetMachine>();
+  }
+
   bool addInstSelector() override {
     EZAPARCH_DUMP_CYAN
+    addPass(createEZapArchISelDag(getEZapArchTargetMachine(), getOptLevel()));
     return false;
   }
 };
