@@ -8,6 +8,7 @@ tablegen(LLVM EZapArchGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM EZapArchGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM EZapArchGenDAGISel.inc -gen-dag-isel)
 tablegen(LLVM EZapArchGenCallingConv.inc -gen-callingconv)
+tablegen(LLVM EZapArchGenAsmWriter.inc -gen-asm-writer)
 
 add_public_tablegen_target(EZapArchCommonTableGen)
 
