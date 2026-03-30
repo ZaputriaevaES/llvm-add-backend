@@ -22,6 +22,19 @@ enum NodeType : unsigned {
 
 } // namespace EZapArchISD
 
+class EZapArchTargetLowering : public TargetLowering {
+public:
+  explicit EZapArchTargetLowering(const TargetMachine &TM,
+                                  const EZapArchSubtarget &STI);
+
+  const char *getTargetNodeName(unsigned Opcode) const override;
+
+  const EZapArchSubtarget &getSubtarget() const { return STI; }
+
+private:
+  const EZapArchSubtarget &STI;
+};
+
 } // end namespace llvm
 
 #endif

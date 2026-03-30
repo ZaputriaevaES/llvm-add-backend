@@ -10,8 +10,9 @@ using namespace llvm;
 #define GET_SUBTARGETINFO_CTOR
 #include "EZapArchGenSubtargetInfo.inc"
 
-EZapArchSubtarget::EZapArchSubtarget(const StringRef &CPU, const StringRef &TuneCPU,
-                                     const StringRef &FS, const TargetMachine &TM)
-    : EZapArchGenSubtargetInfo(TM.getTargetTriple(), CPU, TuneCPU, FS) {
+EZapArchSubtarget::EZapArchSubtarget(const Triple &TT, const std::string &CPU,
+                                     const std::string &FS, const TargetMachine &TM)
+    : EZapArchGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS),
+      TLInfo(TM, *this) {
   EZAPARCH_DUMP_CYAN
 }
