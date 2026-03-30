@@ -1,5 +1,6 @@
 add_llvm_component_library(LLVMEZapArchDesc
   EZapArchMCTargetDesc.cpp
+  EZapArchMCAsmInfo.cpp
 
   LINK_COMPONENTS
   MC
