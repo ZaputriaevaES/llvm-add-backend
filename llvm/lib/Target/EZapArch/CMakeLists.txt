@@ -3,6 +3,7 @@ add_llvm_component_group(EZapArch)
 set(LLVM_TARGET_DEFINITIONS EZapArch.td)
 
 tablegen(LLVM EZapArchGenRegisterInfo.inc -gen-register-info)
+tablegen(LLVM EZapArchGenInstrInfo.inc -gen-instr-info)
 
 add_public_tablegen_target(EZapArchCommonTableGen)
 
