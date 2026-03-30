@@ -1,6 +1,7 @@
 #include "EZapArchTargetMachine.h"
 #include "EZapArch.h"
 #include "TargetInfo/EZapArchTargetInfo.h"
+#include "llvm/CodeGen/TargetLoweringObjectFileImpl.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
 #include <optional>
@@ -20,6 +21,7 @@ EZapArchTargetMachine::EZapArchTargetMachine(const Target &T, const Triple &TT,
     : CodeGenTargetMachineImpl(T, "e-m:e-p:32:32-i8:8:32-i16:16:32-i64:64-n32",
                                TT, CPU, FS, Options, Reloc::Static,
                                getEffectiveCodeModel(CM, CodeModel::Small), OL) {
+      TLOF(std::make_unique<TargetLoweringObjectFileELF>()) { 
   EZAPARCH_DUMP_CYAN
   initAsmInfo();
 }
@@ -48,4 +50,9 @@ public:
 TargetPassConfig *EZapArchTargetMachine::createPassConfig(PassManagerBase &PM) {
   EZAPARCH_DUMP_CYAN
   return new EZapArchPassConfig(*this, PM);
+}
+
+TargetLoweringObjectFile *EZapArchTargetMachine::getObjFileLowering() const {
+  EZAPARCH_DUMP_CYAN
+  return TLOF.get();
 }
