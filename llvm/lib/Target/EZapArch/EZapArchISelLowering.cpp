@@ -39,6 +39,32 @@ EZapArchTargetLowering::EZapArchTargetLowering(const TargetMachine &TM,
     : TargetLowering(TM), STI(STI) {
   EZAPARCH_DUMP_RED
   addRegisterClass(MVT::i32, &EZapArch::GPRRegClass);
+EZapArchTargetLowering::EZapArchTargetLowering(const TargetMachine &TM,
+                                               const EZapArchSubtarget &STI)
+    : TargetLowering(TM), STI(STI) {
+  EZAPARCH_DUMP_RED
+  addRegisterClass(MVT::i32, &EZapArch::GPRRegClass);
+
+  // Compute derived properties from the register classes.
+  computeRegisterProperties(STI.getRegisterInfo());
+
+  setStackPointerRegisterToSaveRestore(EZapArch::R1);
+
+  // Set up operation actions.
+  for (unsigned Opc = 0; Opc < ISD::BUILTIN_OP_END; ++Opc)
+    setOperationAction(Opc, MVT::i32, Expand);
+
+  setOperationAction(ISD::ADD, MVT::i32, Legal);
+  setOperationAction(ISD::MUL, MVT::i32, Legal);
+  setOperationAction(ISD::LOAD, MVT::i32, Legal);
+  setOperationAction(ISD::STORE, MVT::i32, Legal);
+  setOperationAction(ISD::Constant, MVT::i32, Legal);
+  setOperationAction(ISD::UNDEF, MVT::i32, Legal);
+
+  setOperationAction(ISD::BR_CC, MVT::i32, Custom);
+
+  setOperationAction(ISD::FRAMEADDR, MVT::i32, Legal);
+}
 }
 
 const char *EZapArchTargetLowering::getTargetNodeName(unsigned Opcode) const {
