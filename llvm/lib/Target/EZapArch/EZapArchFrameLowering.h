@@ -5,11 +5,15 @@
 #include "llvm/CodeGen/TargetFrameLowering.h"
 
 namespace llvm {
+class EZapArchSubtarget;
 
 class EZapArchFrameLowering : public TargetFrameLowering {
+  const EZapArchSubtarget &STI;
+
 public:
-  explicit EZapArchFrameLowering()
-      : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0) {
+  explicit EZapArchFrameLowering(const EZapArchSubtarget &STI)
+      : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0),
+        STI(STI) {
     EZAPARCH_DUMP_GREEN
   }
 
