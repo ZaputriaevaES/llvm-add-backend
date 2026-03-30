@@ -1,6 +1,7 @@
 include "llvm/Target/Target.td"
 include "EZapArchRegisterInfo.td"
 include "EZapArchInstrInfo.td"
+include "EZapArchCallingConv.td"
 
 class Proc<string Name, list<SubtargetFeature> Features>
  : Processor<Name, NoItineraries, Features>;

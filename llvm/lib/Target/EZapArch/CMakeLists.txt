@@ -7,6 +7,7 @@ tablegen(LLVM EZapArchGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM EZapArchGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM EZapArchGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM EZapArchGenDAGISel.inc -gen-dag-isel)
+tablegen(LLVM EZapArchGenCallingConv.inc -gen-callingconv)
 
 add_public_tablegen_target(EZapArchCommonTableGen)
 
