@@ -4,7 +4,9 @@
 #include "EZapArch.h"
 #include "EZapArchFrameLowering.h"
 #include "EZapArchISelLowering.h"
+#include "EZapArchInstrInfo.h"
 #include "EZapArchRegisterInfo.h"
+#include "llvm/CodeGen/SelectionDAGTargetInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -16,6 +18,8 @@ class EZapArchSubtarget : public EZapArchGenSubtargetInfo {
   EZapArchTargetLowering TLInfo;
   EZapArchFrameLowering FrameLowering;
   EZapArchRegisterInfo RegInfo;
+  EZapArchInstrInfo InstrInfo;
+  SelectionDAGTargetInfo TSInfo;
 
 public:
   EZapArchSubtarget(const Triple &TT, const std::string &CPU,
@@ -36,6 +40,14 @@ public:
   const EZapArchRegisterInfo *getRegisterInfo() const override {
     EZAPARCH_DUMP_CYAN
     return &RegInfo;
+  }
+  const EZapArchInstrInfo *getInstrInfo() const override {
+    EZAPARCH_DUMP_CYAN
+    return &InstrInfo;
+  }
+  const SelectionDAGTargetInfo *getSelectionDAGInfo() const override {
+    EZAPARCH_DUMP_CYAN
+    return &TSInfo;
   }
 };
 
