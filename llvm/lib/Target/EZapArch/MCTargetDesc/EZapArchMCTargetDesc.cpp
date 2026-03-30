@@ -1,5 +1,6 @@
 #include "MCTargetDesc/EZapArchInfo.h"
 #include "EZapArch.h"
+#include "EZapArchInstPrinter.h"
 #include "EZapArchMCAsmInfo.h"
 #include "TargetInfo/EZapArchTargetInfo.h"
 #include "llvm/MC/MCDwarf.h"
@@ -51,6 +52,15 @@ static MCAsmInfo *createEZapArchMCAsmInfo(const MCRegisterInfo &MRI,
   return MAI;
 }
 
+static MCInstPrinter *createEZapArchMCInstPrinter(const Triple &T,
+                                                  unsigned SyntaxVariant,
+                                                  const MCAsmInfo &MAI,
+                                                  const MCInstrInfo &MII,
+                                                  const MCRegisterInfo &MRI) {
+  EZAPARCH_DUMP_MAGENTA
+  return new EZapArchInstPrinter(MAI, MII, MRI);
+}
+
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeEZapArchTargetMC() {
   EZAPARCH_DUMP_MAGENTA
   Target &TheEZapArchTarget = getTheEZapArchTarget();
@@ -62,4 +72,7 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeEZapArchTargetMC() {
   // Register the MC subtarget info.
   TargetRegistry::RegisterMCSubtargetInfo(TheEZapArchTarget,
                                           createEZapArchMCSubtargetInfo);
+
+  // Register the MCInstPrinter
+  TargetRegistry::RegisterMCInstPrinter(TheEZapArchTarget, createEZapArchMCInstPrinter);
 }
