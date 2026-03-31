@@ -64,7 +64,7 @@ static MCInstPrinter *createEZapArchMCInstPrinter(const Triple &T,
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeEZapArchTargetMC() {
   EZAPARCH_DUMP_MAGENTA
   Target &TheEZapArchTarget = getTheEZapArchTarget();
-  RegisterMCAsmInfoFn X(TheSimTarget, createSimMCAsmInfo);
+  RegisterMCAsmInfoFn X(TheEZapArchTarget, createEZapArchMCAsmInfo);
   // Register the MC register info.
   TargetRegistry::RegisterMCRegInfo(TheEZapArchTarget, createEZapArchMCRegisterInfo);
   // Register the MC instruction info.

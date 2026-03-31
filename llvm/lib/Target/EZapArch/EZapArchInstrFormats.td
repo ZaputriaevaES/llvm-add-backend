@@ -1,5 +1,5 @@
 //===----------------------------------------------------------------------===//
-//  Describe Sim instructions format
+//  Describe EZapArch instructions format
 //
 //  CPU INSTRUCTION FORMATS
 //

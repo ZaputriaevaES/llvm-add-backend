@@ -1,4 +1,4 @@
-// Sim Register file declaration
+// EZapArch Register file declaration
 class EZapArchReg<bits<16> Enc, string n> : Register<n> {
   let HWEncoding = Enc;
   let Namespace = "EZapArch";
